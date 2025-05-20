@@ -39,7 +39,12 @@ const updateClientsViewGrid = (game) => {
     game.player2Socket.emit('game.grid.view-state', GameService.send.forPlayer.gridViewState('player:2', game.gameState));
   }, 200)
 }
-
+const updateClientsViewScore = (game) => {
+  setTimeout(() => {
+    game.player1Socket.emit('game.score.view-state', GameService.send.forPlayer.scoreViewState('player:1', game.gameState));
+    game.player2Socket.emit('game.score.view-state', GameService.send.forPlayer.scoreViewState('player:2', game.gameState));
+  }, 200)
+}
 // ---------------------------------
 // -------- GAME METHODS -----------
 // ---------------------------------
@@ -94,6 +99,7 @@ const createGame = (player1Socket, player2Socket) => {
       games[gameIndex].gameState.grid = GameService.grid.resetcanBeCheckedCells(games[gameIndex].gameState.grid);
 
       // reset views also
+      updateClientsViewScore(games[gameIndex]);
       updateClientsViewTimers(games[gameIndex]);
       updateClientsViewDecks(games[gameIndex]);
       updateClientsViewChoices(games[gameIndex]);
@@ -239,7 +245,8 @@ io.on('connection', socket => {
 
     games[gameIndex].player1Socket.emit('game.timer', GameService.send.forPlayer.gameTimer('player:1', games[gameIndex].gameState));
     games[gameIndex].player2Socket.emit('game.timer', GameService.send.forPlayer.gameTimer('player:2', games[gameIndex].gameState));
-
+    // reset du score en fin de tour 
+    updateClientsViewScore(games[gameIndex]);
     updateClientsViewDecks(games[gameIndex]);
     updateClientsViewChoices(games[gameIndex]);
     updateClientsViewGrid(games[gameIndex]);

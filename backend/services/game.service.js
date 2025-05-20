@@ -1,6 +1,9 @@
 // Durée d'un tour en secondes
 const TURN_DURATION = 40;
 
+//pion max d'un joueur
+const MAX_PION_PLAYER= 12;
+
 const DECK_INIT = {
     dices: [
         { id: 1, value: '', locked: true },
@@ -171,12 +174,18 @@ const GameService = {
                     canSelectCells: (playerKey === gameState.currentTurn) && (gameState.choices.availableChoices.length > 0),
                     grid: gameState.grid
                 };
-
+    },
+            // ceci sert à renvoyer le score du joueur playerScore et de l'adversaire scoreOpponent
+            scoreViewState: (playerKey, gameState) => {
+                const playerScore = playerKey === 'player:1' ? gameState.player1Score : gameState.player2Score;
+                const opponentScore = playerKey === 'player:1' ? gameState.player2Score : gameState.player1Score;
+                return { playerScore, opponentScore };
             }
-        }
+        },
+
     },
 
-    timer: {  
+    timer: {
         getTurnDuration: () => {
             return TURN_DURATION;
         }

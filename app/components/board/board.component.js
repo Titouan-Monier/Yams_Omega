@@ -8,6 +8,8 @@ import PlayerDeck from "./decks/player-deck.component";
 import OpponentDeck from "./decks/opponent-deck.component";
 import Choices from "./choices/choices.component";
 import Grid from "./grid/grid.component";
+import PlayerScore from "./score/score.player";
+import OpponentScore from "./score/score.opponent";
 
 const OpponentInfos = () => {
   return (
@@ -17,13 +19,7 @@ const OpponentInfos = () => {
   );
 };
 
-const OpponentScore = () => {
-  return (
-    <View style={styles.opponentScoreContainer}>
-      <Text>Score: </Text>
-    </View>
-  );
-};
+
 
 const PlayerInfos = () => {
   return (
@@ -33,14 +29,7 @@ const PlayerInfos = () => {
   );
 };
 
-const PlayerScore = () => {
 
-  return (
-    <View style={styles.playerScoreContainer}>
-      <Text>PlayerScore</Text>
-    </View>
-  );
-};
 
 const Board = ({ gameViewState}) => {
   return (
@@ -103,11 +92,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: "lightgrey"
   },
-  opponentScoreContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
+  
   deckOpponentContainer: {
     flex: 1,
     justifyContent: "center",
@@ -137,12 +122,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: "lightgrey"
   },
-  playerScoreContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: "lightgrey"
-  },
+  
 });
 
 export default Board;
