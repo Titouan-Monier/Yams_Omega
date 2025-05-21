@@ -1,36 +1,45 @@
-# Socket IO Example
+Ce projet a pour but de recréer le jeux populaire "Yams".
 
-<p>
-  <!-- iOS -->
-  <a href="https://itunes.apple.com/app/apple-store/id982107779">
-    <img alt="Supports Expo iOS" longdesc="Supports Expo iOS" src="https://img.shields.io/badge/iOS-4630EB.svg?style=flat-square&logo=APPLE&labelColor=999999&logoColor=fff" />
-  </a>
-  <!-- Android -->
-  <a href="https://play.google.com/store/apps/details?id=host.exp.exponent&referrer=blankexample">
-    <img alt="Supports Expo Android" longdesc="Supports Expo Android" src="https://img.shields.io/badge/Android-4630EB.svg?style=flat-square&logo=ANDROID&labelColor=A4C639&logoColor=fff" />
-  </a>
-  <!-- Web -->
-  <a href="https://docs.expo.dev/workflow/web/">
-    <img alt="Supports Expo Web" longdesc="Supports Expo Web" src="https://img.shields.io/badge/web-4630EB.svg?style=flat-square&logo=GOOGLE-CHROME&labelColor=4285F4&logoColor=fff" />
-  </a>
-</p>
+Il a été développé en React Native/ Js et utilise des sockets qui permettent une communication ente client serveur.
 
-This example shows how to connect and interact with socket-io backends.
+Utilisation.
 
-## 🚀 How to use
+Pour utiliser ce projet, veuillez le cloner dans un premier temps.
+Dans un second temps ouvrez le sur votre IDE favoris, ouvrez un terminal à la racine du projet puis : " cd ./backend/", puis " npm install" pour installer les dépendances nécessaire au projet côté back. 
 
-### Running the app
 
-- Run `yarn` or `npm install`
-- Open `App.js` and change the `socketEndpoint` at the top of the file to point to your endpoint.
-- Open `app` with `yarn start` or `npm run start` to try it out.
+Pour lancer le projet, scindez un terminal en deux l'un à la racine et l'autre au niveau de /backend/. 
+Utilisez "npm run start" pour lancer le backend ( toujours au niveau de /backend/).
+Utilisez ensuite " npx expo start" à la racine du projet pour lancer le serveur puis appuyer sur "W" pour ouvrir une page pour pouvoir lancer le jeux et jouer.
 
-### Running the server
+Infos: Si les commandes ne marchent pas car vos scripts sont bloqués par Windows sur votre IDE, faites : " Set-ExecutionPolicy Bypass -Scope Process -Force".
 
-- `cd` into the `backend` directory and run `yarn` or `npm install`, then run `yarn start` or `npm run start`
-- Install [ngrok](https://ngrok.com/download) and run `ngrok http 3000` and copy the https url that looks something like this `https://f7333e87.ngrok.io`.
+Architecture.
 
-## 📝 Notes
+Mon application utilise une architecture client-serveur :
 
-React Native provides a socket-io compatible WebSocket implementation, some people get tripped up on the https requirement so this example helps to clarify how you can get it running.
-# Yams_Omega
+Client : Construit avec React Native pour offrir une interface mobile (ou cross-platform).
+Chaque joueur dispose d’une interface mobile réactive qui affiche le plateau de jeu (grille, dés, score, timer, etc.).
+
+L’interface est enrichie par des animations et des effets (par exemple, effets "enflammés" pour le timer, les dés et la grille) pour renforcer l'immersion et donner un côté ludique au jeu.
+
+Serveur : Construit avec Node.js ainsi que  Socket.IO qui héberge la logique métier du jeu.
+Côté serveur vous trouverez le fichier GameService : Un module qui est central car contenant des sous-modules spécialisés pour gérer différents aspects du jeu, comme le calcul des scores, la gestion de la grille, le lancement des dés, la gestion des choix (combinaisons) et la synchronisation des états.
+
+Reste à faire.
+
+Une partie de la logique a été implémenté, cependant il reste de nombreux modules à ajouter, tel que :
+- Puis vous implémenterez la gestion des 12 pions (tokens) disponibles pour chacun des joueurs. (à chaque fois qu'un joueur pose un pion, on decrémente).
+- Lorsque qu'un utilisateur pose un pion sur la grille de jeu, un check est effectué sur les conditions de victoires potentielles (lignes verticales/horizontales/diagonales ou un des joueurs n'a plus de pions).
+- L'information est transmise à la partie Client qui affiche une page de "Résumé de la partie" avec le vainqueur, le perdant, les scores, et ce que vous voulez..
+- Vous déciderez ensuite du workflow utilisateur que vous souhaitez mettre en place donc à la fin d'une partie: retour au menu, relancer, etc..
+- (OPTIONNEL) Vous pouvez également implémenter la logique de jeu et d'interface de la combinaison "Défi" (bouton Défi au 2e lancer pour annoncer une figure) et "Yam Prédator" (enlever un pion à l'adversaire).
+ - Développement du mode "VS Bot" (8 pts)
+    - Vous utiliserez le socle existant pour coder le mode Vs-Bot.
+    - Ce mode de jeu sera au maximum factorisé avec le mode de jeu en ligne (besoin d'un nouveau createGameVsBot mais beaucoup de méthodes peuvent être réutilisées).
+  
+
+Amélioration.
+
+Dans la version actuelle le CSS a été ajouté sans regression ( des effets CSS&JS trop "poussé" peuvent bloquer le screen de partie),
+la fonction "calculateScore" créer pour calculer et renvoyer le score des joueurs bloquent actuellemnt le socket permettant de cliquer sur le plateau. Malgré plusieurs maj et du debbuging.
