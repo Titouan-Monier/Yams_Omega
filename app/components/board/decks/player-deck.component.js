@@ -92,8 +92,10 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    borderBottomWidth: 1,
-    borderColor: "black"
+    borderBottomWidth: 2,
+    borderColor: "black",
+     
+    paddingVertical: 16,
   },
   rollInfoContainer: {
     marginBottom: 10,
@@ -101,26 +103,38 @@ const styles = StyleSheet.create({
   rollInfoText: {
     fontSize: 14,
     fontStyle: "italic",
+    color: "#ff9900", 
   },
   diceContainer: {
     flexDirection: "row",
-    width: "70%",
-    justifyContent: "space-between",
+    width: "80%",
+    justifyContent: "space-around",
     marginBottom: 10,
+    gap: 8,
+    flexWrap: "wrap",
   },
   rollButton: {
-    width: "30%",
-    backgroundColor: "green",
-    paddingVertical: 10,
-    borderRadius: 5,
+    width: "40%",
+    backgroundColor: "orange",
+    paddingVertical: 12,
+    borderRadius: 8,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "black"
+    borderWidth: 2,
+    borderColor: "black",
+    shadowColor: "#ff6600",     
+    shadowOffset: { width: 0, height: 0 },
+    shadowOpacity: 0.9,
+    shadowRadius: 10,
+    elevation: 10, 
   },
   rollButtonText: {
     fontSize: 18,
-    color: "white",
+    color: "black",
     fontWeight: "bold",
+    textShadowColor: "#ffcc00",
+    textShadowOffset: { width: 1, height: 1 },
+    textShadowRadius: 4,
   },
 });
 

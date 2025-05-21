@@ -78,9 +78,19 @@ const styles = StyleSheet.create({
         backgroundColor: "lightgreen",
     },
     choiceText: {
-        fontSize: 13,
-        fontWeight: "bold",
-    },
+  fontSize: 14,
+  fontWeight: "600",
+  color: "#333",         
+  letterSpacing: 0.5,     
+  textTransform: "capitalize", 
+  fontFamily: "Segoe UI, Roboto, sans-serif", 
+  paddingVertical: 4,     
+  paddingHorizontal: 8,   
+  backgroundColor: "#f5f5f5",
+  borderRadius: 6,        
+  alignSelf: "flex-start" 
+},
+
     disabledChoice: {
         opacity: 0.5,
     },

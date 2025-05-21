@@ -43,14 +43,19 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     borderBottomWidth: 1,
-    borderColor: "black"
+    borderColor: "#ccc",              
+    backgroundColor: "#fafafa",       
+    paddingVertical: 16,              
   },
   diceContainer: {
     flexDirection: "row",
-    width: "70%",
-    justifyContent: "space-between",
-    marginBottom: 10,
+    width: "80%",                     
+    justifyContent: "space-around",   
+    marginBottom: 12,
+    gap: 8,                           
+    flexWrap: "wrap",                 
   },
 });
+
 
 export default OpponentDeck;

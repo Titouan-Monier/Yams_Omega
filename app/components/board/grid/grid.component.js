@@ -56,49 +56,72 @@ const Grid = () => {
 };
 
 const styles = StyleSheet.create({
-    gridContainer: {
-        flex: 7,
-        justifyContent: "center",
-        alignItems: "center",
-        flexDirection: "column",
-    },
-    row: {
-        flexDirection: "row",
-        flex: 1,
-        width: "100%",
-        justifyContent: "center",
-        alignItems: "center",
-    },
-    cell: {
-        flexDirection: "row",
-        flex: 2,
-        width: "100%",
-        height: "100%",
-        justifyContent: "center",
-        alignItems: "center",
-        borderWidth: 1,
-        borderColor: "black",
-    },
-    cellText: {
-        fontSize: 11,
-    },
-    playerOwnedCell: {
-        backgroundColor: "lightgreen",
-        opacity: 0.9,
-    },
-    opponentOwnedCell: {
-        backgroundColor: "lightcoral",
-        opacity: 0.9,
-    },
-    canBeCheckedCell: {
-        backgroundColor: "lightyellow",
-    },
-    topBorder: {
-        borderTopWidth: 1,
-    },
-    leftBorder: {
-        borderLeftWidth: 1,
-    },
+  gridContainer: {
+    flex: 7,
+    justifyContent: "center",
+    alignItems: "center",
+    flexDirection: "column",
+    backgroundColor: "#1a1a1a", // fond sombre pour mieux faire ressortir les flammes
+  },
+  row: {
+    flexDirection: "row",
+    flex: 1,
+    width: "100%",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  cell: {
+    flexDirection: "row",
+    flex: 2,
+    width: "100%",
+    height: "100%",
+    justifyContent: "center",
+    alignItems: "center",
+    borderWidth: 1,
+    borderColor: "black",
+    backgroundColor: "orange",
+    shadowColor: "#ff6600",
+    shadowOffset: { width: 0, height: 0 },
+    shadowOpacity: 0.9,
+    shadowRadius: 10,
+    elevation: 8, // Android glow
+  },
+  cellText: {
+    fontSize: 13,
+    fontWeight: "bold",
+    color: "black",
+    textShadowColor: "#ffcc00",
+    textShadowOffset: { width: 1, height: 1 },
+    textShadowRadius: 5,
+  },
+  playerOwnedCell: {
+    backgroundColor: "#ffa500", // orange vif
+    borderColor: "black",
+    shadowColor: "#ff4500",
+    shadowOffset: { width: 0, height: 0 },
+    shadowOpacity: 1,
+    shadowRadius: 15,
+    elevation: 10,
+  },
+  opponentOwnedCell: {
+    backgroundColor: "#ff6347", // rouge orangé
+    borderColor: "black",
+    shadowColor: "#ff3300",
+    shadowOffset: { width: 0, height: 0 },
+    shadowOpacity: 1,
+    shadowRadius: 15,
+    elevation: 10,
+  },
+  canBeCheckedCell: {
+    backgroundColor: "#ffff66", // jaune clair
+    borderColor: "black",
+  },
+  topBorder: {
+    borderTopWidth: 1,
+  },
+  leftBorder: {
+    borderLeftWidth: 1,
+  },
 });
 
 export default Grid;

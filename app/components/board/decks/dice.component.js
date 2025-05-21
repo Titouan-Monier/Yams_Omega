@@ -24,23 +24,37 @@ const Dice = ({ index, locked, value, onPress, opponent }) => {
 
 const styles = StyleSheet.create({
   dice: {
-    width: 40,
-    height: 40,
-    backgroundColor: "lightblue",
-    borderRadius: 5,
+    width: 50,
+    height: 50,
+    backgroundColor: "orange",
+    borderRadius: 8,
     justifyContent: "center",
     alignItems: "center",
+    borderWidth: 2,
+    borderColor: "black",
+    shadowColor: "#ff6600",
+    shadowOffset: { width: 0, height: 0 },
+    shadowOpacity: 0.9,
+    shadowRadius: 10,
+    elevation: 10, // Pour Android
   },
   lockedDice: {
-    backgroundColor: "gray",
+    backgroundColor: "#4d4d4d", // gris foncé pour mieux contraster
+    borderColor: "#1a1a1a",
+    shadowColor: "#333",
   },
   diceText: {
-    fontSize: 20,
+    fontSize: 22,
     fontWeight: "bold",
+    color: "black",
+    textShadowColor: "#ffcc00",
+    textShadowOffset: { width: 1, height: 1 },
+    textShadowRadius: 5,
   },
   opponentText: {
     fontSize: 12,
     color: "red",
+    fontStyle: "italic",
   },
 });
 
