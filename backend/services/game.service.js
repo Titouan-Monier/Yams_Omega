@@ -3,6 +3,32 @@ const TURN_DURATION = 40;
 
 //pion max d'un joueur
 const MAX_PION_PLAYER= 12;
+// GameService.js (ou là où tu as défini le module)
+const score = {
+  calculateScore: (choice, dices) => {
+    switch (choice.id) {
+      case 'brelan':
+        const counts = {};
+        dices.forEach(d => counts[d] = (counts[d] || 0) + 1);
+        for (let key in counts) {
+          if (counts[key] >= 3) return 3 * parseInt(key);
+        }
+        return 0;
+
+      case 'yams':
+        if (dices.every(d => d === dices[0])) return 50;
+        return 0;
+
+      case 'sommeDes1':
+        return dices.filter(d => d === 1).reduce((a, b) => a + b, 0);
+
+      // TODO: ajouter les autres cas...
+
+      default:
+        return 0;
+    }
+  }
+};
 
 const DECK_INIT = {
     dices: [
@@ -90,6 +116,7 @@ const GAME_INIT = {
 
 const GameService = {
 
+
     init: {
         gameState: () => {
             const game = { ...GAME_INIT };
@@ -129,7 +156,7 @@ const GameService = {
                             : game.player1Socket.id
                 };
             },
-
+            
             viewQueueState: () => {
                 return {
                     inQueue: true,
@@ -229,6 +256,15 @@ const GameService = {
     choices: {
         findCombinations: (dices, isDefi, isSec) => {
             const availableCombinations = [];
+            // Détection automatique de isDefi et isSec SCORE
+                const allValues = dices.map(d => parseInt(d.value));
+                const uniqueValues = [...new Set(allValues)];
+                const allSame = uniqueValues.length === 1;
+                const allDifferent = uniqueValues.length === dices.length;
+
+                if (allSame) isDefi = true;
+                if (allDifferent) isSec = true;
+
             const allCombinations = ALL_COMBINATIONS;
 
             const counts = Array(7).fill(0); // Tableau pour compter le nombre de dés de chaque valeur (de 1 à 6)
@@ -387,5 +423,5 @@ const GameService = {
         }
     }
 }
-
+module.exports = score;
 module.exports = GameService;

@@ -71,6 +71,7 @@ const createGame = (player1Socket, player2Socket) => {
   games[gameIndex].player2Socket.emit('game.start', GameService.send.forPlayer.viewGameState('player:2', games[gameIndex]));
 
   // we update views
+  updateClientsViewScore(games[gameIndex]);
   updateClientsViewTimers(games[gameIndex]);
   updateClientsViewDecks(games[gameIndex]);
   updateClientsViewGrid(games[gameIndex]);
@@ -227,13 +228,51 @@ io.on('connection', socket => {
   });
 
   socket.on('game.grid.selected', (data) => {
-
+    // const utilisé pour le calcul du score
     const gameIndex = GameService.utils.findGameIndexBySocketId(games, socket.id);
-
+    console.log('gameIndex:', gameIndex); 
+    const currentTurn = games[gameIndex].gameState.currentTurn;
+    const currentPlayer = games[gameIndex].gameState.currentTurn;
     games[gameIndex].gameState.grid = GameService.grid.resetcanBeCheckedCells(games[gameIndex].gameState.grid);
-    games[gameIndex].gameState.grid = GameService.grid.selectCell(data.cellId, data.rowIndex, data.cellIndex, games[gameIndex].gameState.currentTurn, games[gameIndex].gameState.grid);
-
+    games[gameIndex].gameState.grid = GameService.grid.selectCell(data.cellId, data.rowIndex, data.cellIndex,currentTurn, games[gameIndex].gameState.grid);
     // TODO: Here calcul score
+    // TODO: Here calcul score + desincrement pions
+
+
+
+const selectedChoiceId = games[gameIndex].gameState.choices.idSelectedChoice;
+const selectedChoice = games[gameIndex].gameState.choices.availableChoices.find(choice => choice.id === selectedChoiceId);
+
+
+
+// Si un choix est fait, calcul du score
+if (selectedChoice) {
+  const dices = games[gameIndex].gameState.dices; // récupère les dés actuels
+  const score = GameService.score.calculateScore(selectedChoice, dices);
+
+
+  // Initialisation des scores si absent
+  if (!games[gameIndex].gameState.scores) {
+    games[gameIndex].gameState.scores = {
+      'player:1': 0,
+      'player:2': 0
+    };
+  }
+
+  // Ajout du score au joueur courant
+  games[gameIndex].gameState.scores[currentPlayer] += score;
+
+  // Envoi des scores aux deux joueurs via socket
+  games[gameIndex].player1Socket.emit(
+    'game.score',
+    GameService.send.forPlayer.score('player:1', games[gameIndex].gameState)
+  );
+  games[gameIndex].player2Socket.emit(
+    'game.score',
+    GameService.send.forPlayer.score('player:2', games[gameIndex].gameState)
+  );
+}
+
     // TODO: Then check if a player win
 
     // end turn
